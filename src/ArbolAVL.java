@@ -2,7 +2,6 @@ public class ArbolAVL <T> {
     
     Nodo head;
     
-
     public ArbolAVL (){
     this.head = null;
     }
@@ -16,9 +15,10 @@ public class ArbolAVL <T> {
         
         if (n==null){
             return null;
-        }
+        } 
 
         if(n.key == key){
+            System.out.println("el valor: " + key +" si existe" );
             return n;
         }
 
@@ -39,7 +39,9 @@ public class ArbolAVL <T> {
 
     public int getMinNodo(Nodo n){
         if (n == null){
+            System.out.println("hola");
             return -1;
+            
         }
 
         if (n.left == null){
@@ -47,7 +49,7 @@ public class ArbolAVL <T> {
         }
 
         if(n.left!=null){
-            getMinNodo(n);
+            getMinNodo(n.left);
         }
 
         return -1;
@@ -67,7 +69,7 @@ public class ArbolAVL <T> {
         }
 
         if(n.right!=null){
-            getMaxNodo(n);
+            getMaxNodo(n.right);
         }
 
         return -1;
@@ -110,17 +112,25 @@ public class ArbolAVL <T> {
         int[] sons = new int[2];
 
         Nodo k = Search(key);
+        
+        
+        if(k == null){
+            
+            sons[0]= -1;
+            sons[1]= -1;
+            return sons; 
+        }
 
         if (k.left == null){
-            sons[1]= 0;
+            sons[0]= -1;
         } else {
-            sons[1] = k.left.key;
+            sons[0] = k.left.key;
         }
 
         if (k.right == null){
-            sons[2]= 0;
+            sons[1]= -1;
         }else {
-            sons[2] = k.right.key;
+            sons[1] = k.right.key;
         }
 
         return sons;
@@ -128,13 +138,14 @@ public class ArbolAVL <T> {
 
     public void insert(int key){
         this.head = insertarNodo(head ,key);
+        System.out.println("se inserto correctamente la clave: " + key);
     }
 
     public Nodo insertarNodo(Nodo nodo, int cl){
 
         //si el nodo esta vacio inserta el dato alli
         if (nodo == null){
-            nodo.key = cl;
+            nodo = new Nodo<T>(cl);
         }
 
         if (cl < nodo.key){

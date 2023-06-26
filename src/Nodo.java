@@ -8,6 +8,4 @@ class Nodo<T>{
         this.key = key;
         this.height = 1;
     }
-
-    
 }
